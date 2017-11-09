@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Load a basic WebMap - 4.4</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.4/esri/css/main.css">
+
+  <script src="https://js.arcgis.com/4.4/"></script>
+
+<!--<script>
+    require([
+      "esri/views/MapView",
+      "esri/WebMap",
+      "esri/widgets/LayerList",
+      "esri/widgets/BasemapToggle",
+
+      "dojo/domReady!"
+    ], function(
+      MapView, WebMap,LayerList, BasemapToggle
+    ) {
+
+      /************************************************************
+       * Creates a new WebMap instance. A WebMap must reference
+       * a PortalItem ID that represents a WebMap saved to
+       * arcgis.com or an on-premise portal.
+       *
+       * To load a WebMap from an on-premise portal, set the portal
+       * url with esriConfig.portalUrl.
+       ************************************************************/
+      var webmap = new WebMap({
+        portalItem: { // autocasts as new PortalItem()
+          id: "ae9b0e57415c4e229ecf8ddfdb3aa83c"
+        }
+      });
+
+      /************************************************************
+       * Set the WebMap instance to the map property in a MapView.
+       ************************************************************/
+      var view = new MapView({
+        map: webmap,
+        container: "viewDiv"
+      });
+      
+       view.then(function() {
+        var layerList = new LayerList({
+          view: view
+        });
+
+        // Add widget to the top right corner of the view
+        view.ui.add(layerList, "top-right");
+
+
+      // 1 - Create the widget
+      var toggle = new BasemapToggle({
+        // 2 - Set properties
+        view: view, // view that provides access to the map's 'topo' basemap
+        nextBasemap: "hybrid" // allows for toggling to the 'hybrid' basemap
+      });
+
+      // Add widget to the top right corner of the view
+      view.ui.add(toggle, "top-right");
+      });
+    });
+  </script>-->
+
+    <script>
+    require([
+      "esri/views/SceneView",
+      "esri/widgets/LayerList",
+      "esri/WebScene",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/Home",
+
+      "dojo/domReady!"
+    ], function(
+      SceneView, LayerList, WebScene, BasemapToggle, Home
+    ) {
+
+      var scene = new WebScene({
+        portalItem: { // autocasts as new PortalItem()
+          id: "b45f511666d34ef0bc24d72f586e938d"
+        }
+      });
+
+
+      var view = new SceneView({
+        container: "viewDiv",
+        map: scene
+      });
+
+      // layer list
+      view.then(function() {
+      var layerList = new LayerList({
+        view: view
+      });
+
+      // Add widget to the top right corner of the view
+      view.ui.add(layerList, "top-right");
+
+      // 1 - Create the widget
+      var toggle = new BasemapToggle({
+        // 2 - Set properties
+        view: view, // view that provides access to the map's 'topo' basemap
+        nextBasemap: "hybrid" // allows for toggling to the 'hybrid' basemap
+      });
+
+      // Add widget to the top right corner of the view
+      view.ui.add(toggle, "top-right");
+
+      var homeBtn = new Home({
+        view: view
+      });
+
+      // Add the home button to the top left corner of the view
+      view.ui.add(homeBtn, "top-left");
+
+
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
